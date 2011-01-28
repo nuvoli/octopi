@@ -10,9 +10,7 @@ module Octopi
     
     def repositories(public_only=false)
       repos = Api.api.get("/organizations/#{login}/#{"public_" if public_only}repositories")
-      puts "Repos: #{repos.inspect}\n\n\n..."
       repos['repositories'].map do |repo|
-        puts "-> Adding repo #{repo.inspect}"
         Repository.new(repo)
       end unless repos['repositories'].nil?
     end
