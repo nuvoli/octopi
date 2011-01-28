@@ -46,6 +46,16 @@ module Octopi
       alias_method :search, :find_all
     end
 
+
+    # Returns a collection of Organizations objects, 
+    # the user is a member of
+    def organizations
+      Api.api.get("/user/show/#{login}/organizations")["organizations"].map do |o|
+        Organization.new(o)
+      end
+    end
+    
+
     # Returns a collection of Repository objects, containing
     # all repositories of the user.
     #

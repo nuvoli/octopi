@@ -14,9 +14,11 @@ module Octopi
     delete_path "/repos/delete/:id"
     
     attr_accessor :private
-    
+      
     def owner=(owner)
-      @owner = User.find(owner)
+      @@known_owners ||= {}
+      return @@known_owners[owner] if @@known_owners[owner]
+      @@known_owners[owner] = @owner = User.find(owner)
     end
     
     # Returns all branches for the Repository
